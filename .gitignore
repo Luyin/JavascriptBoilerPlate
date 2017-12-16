@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+# IntelliJ Project setting file
+.idea
+
+# Test page directory
+www/
+
+# Build Output directory
+dist/
+

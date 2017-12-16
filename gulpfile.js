@@ -5,8 +5,8 @@ var gulp = require('gulp');
  *
  * 보통 gulp로 하는 작업들
  * 1. WebPack Bundling
- * 2. build 폴더 삭제
- * 2. build 폴더에 복사
+ * 2. dist 폴더 삭제 (webpakc에서는 dist폴더를 비우는 plugin이 존재한다)
+ * 2. dist 폴더에 복사
  * 3. live reload
  */
 

@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const del = require('del');
+const log = require('fancy-log');
 const webpack = require ('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackDevConfig = require('./config/webpack/webpack.dev');
@@ -30,7 +31,9 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
     const compiler= webpack(config);
 
     compiler.run((err, stat) => {
-
+        if(err) {
+            log.error(err);
+        }
     });
 });
 
@@ -39,7 +42,9 @@ gulp.task('webpack:build:production', ['clean:dist'], () => {
     const compiler= webpack(config);
 
     compiler.run((err, stat) => {
-
+        if(err) {
+            log.error(err);
+        }
     });
 });
 
@@ -52,7 +57,7 @@ gulp.task('webpack:devServer', () => {
 
     server.listen(options.port, options.host, (err) => {
         if(err) {
-            console.log(err);
+            log.error(err);
         }
     });
 });

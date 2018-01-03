@@ -27,6 +27,11 @@ gulp.task('clean:dist', () => {
 });
 
 gulp.task('webpack:build:dev', ['clean:dist'], () => {
+    /**
+     * watch 형태로 파일 변경시 자동 빌드
+     * cached로 자동 빌드 성능 향상
+     * @type {webpackDevConfig}
+     */
     const config = Object.create(webpackDevConfig);
     const compiler= webpack(config);
 
@@ -49,6 +54,10 @@ gulp.task('webpack:build:production', ['clean:dist'], () => {
 });
 
 gulp.task('webpack:devServer', () => {
+    /**
+     * watch 형태로 파일 변경시 자동 빌드
+     * 자동 빌드시 브라우저 새로고침
+     */
     const config = Object.create(webpackDevConfig);
     const options = Object.create(webpackDevServerConfig.devServer);
 

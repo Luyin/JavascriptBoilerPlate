@@ -35,9 +35,11 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
     const config = Object.create(webpackDevConfig);
     const compiler= webpack(config);
 
-    compiler.run((err, stats) => {
-        if(err || stats.hasErrors()) {
-            log.error(err);
+    const watching = compiler.watch({
+
+        },(err, stats) => {
+            if(err || stats.hasErrors()) {
+                log.error(err);
         }
     });
 });

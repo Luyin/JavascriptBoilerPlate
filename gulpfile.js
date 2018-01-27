@@ -35,8 +35,8 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
     const config = Object.create(webpackDevConfig);
     const compiler= webpack(config);
 
-    compiler.run((err, stat) => {
-        if(err) {
+    compiler.run((err, stats) => {
+        if(err || stats.hasErrors()) {
             log.error(err);
         }
     });
@@ -59,6 +59,24 @@ gulp.task('webpack:devServer', () => {
      * 자동 빌드시 브라우저 새로고침
      */
     const config = Object.create(webpackDevConfig);
+    const options = Object.create(webpackDevServerConfig.devServer);
+
+    const compiler = webpack(config);
+    const server = new WebpackDevServer(compiler, options);
+
+    server.listen(options.port, options.host, (err) => {
+        if(err) {
+            log.error(err);
+        }
+    });
+});
+
+gulp.task('webpack:devServer:browserSync', () => {
+    /**
+     * watch 형태로 파일 변경시 자동 빌드
+     * 자동 빌드시 브라우저 새로고침
+     */
+    const config = Object.create(webpackDevServerConfig);
     const options = Object.create(webpackDevServerConfig.devServer);
 
     const compiler = webpack(config);

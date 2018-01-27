@@ -19,9 +19,11 @@ module.exports = merge(dev,{
     ],
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
+        watchContentBase: true, //contentBase 내용 변경시, page reload
         compress: true, //gzip 사용 여부
         port: PORT,
         host: HOST,
+        lazy: false, //요청이 발생했을 때만, 컴파일&번들링
         inline: false, //수정 사항 발생시, 전체 페이지 새로고침
         hot: true, //수정 사항 발생시, 부분 새로고침
         open: 'Google Chrome', //서버 실행시, 브라우저 자동 실행

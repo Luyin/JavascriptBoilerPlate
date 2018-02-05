@@ -62,7 +62,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: 'style/[name]-one.css' //output.path 경로 아래에 생성된다.
+            filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
         })
     ]
 };

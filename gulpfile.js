@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const del = require('del');
 const log = require('fancy-log');
+const sassdoc = require('sassdoc');
 const webpack = require ('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackDevConfig = require('./config/webpack/webpack.dev');
@@ -15,6 +16,7 @@ const webpackProdConfig = require('./config/webpack/webpack.prod');
  * 2. dist 폴더 삭제 (webpakc에서는 dist폴더를 비우는 plugin이 존재한다)
  * 2. dist 폴더에 복사
  * 3. live reload
+ * 4. Karma 설정
  */
 
 /*
@@ -23,6 +25,14 @@ const webpackProdConfig = require('./config/webpack/webpack.prod');
 gulp.task('clean:dist', () => {
     return del([
         './dist/**/*'
+    ]);
+});
+/*
+    docs 폴더 내부 삭제
+ */
+gulp.task('clean:docs', () => {
+    return del([
+        './docs/**/*'
     ]);
 });
 
@@ -89,6 +99,27 @@ gulp.task('webpack:devServer:browserSync', () => {
             log.error(err);
         }
     });
+});
+
+gulp.task('sassdoc', ['clean:docs'], () => {
+    var options = {
+        dest: 'docs/sassdoc',
+        verbose: true,
+        display: {
+            access: ['public', 'private'],
+            alias: true,
+            watermark: true,
+        },
+        groups: {
+            'undefined': 'Ungrouped',
+            foo: 'Foo group',
+            bar: 'Bar group',
+        },
+        basePath: 'https://github.com/SassDoc/sassdoc',
+    };
+
+    return gulp.src('./src/assets/**/*.scss')
+        .pipe(sassdoc(options));
 });
 
 // gulp.watch('js/**/*.js', function(event) {

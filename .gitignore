@@ -66,6 +66,9 @@ www/
 # Build Output directory
 dist/
 
+# Docs directory
+docs/
+
 # package lock
 package-lock.json
 

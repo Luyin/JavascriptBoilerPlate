@@ -7,6 +7,7 @@ module.exports = merge(common, {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Javascript Boiler Plate',
+            template: './markup/index.html'
         })
     ]
 });

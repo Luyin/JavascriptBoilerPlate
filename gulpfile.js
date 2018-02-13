@@ -1,7 +1,9 @@
 const gulp = require('gulp');
+const path = require('path');
 const del = require('del');
 const log = require('fancy-log');
 const sassdoc = require('sassdoc');
+const karmaServer = require('karma').Server;
 const webpack = require ('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackDevConfig = require('./config/webpack/webpack.dev');
@@ -120,6 +122,22 @@ gulp.task('sassdoc', ['clean:docs'], () => {
 
     return gulp.src('./src/assets/**/*.scss')
         .pipe(sassdoc(options));
+});
+
+gulp.task('karma:test', function (done) {
+    new karmaServer({
+        configFile: path.resolve('./karma.config'),
+        singleRun: true
+    }, function(err){
+        if(err === 0){
+            done();
+        } else {
+            log.error('karma', {
+                message: 'Karma Tests failed'
+            });
+            done();
+        }
+    }).start();
 });
 
 // gulp.watch('js/**/*.js', function(event) {

@@ -8,7 +8,12 @@
     "jsx": "react",
     "allowJs": true,
     "types": [
-      "lodash"
+      "lodash",
+      "mocha",
+      "chai"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

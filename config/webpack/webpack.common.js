@@ -11,7 +11,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        main: ['./src/index.ts','./src/assets/sass/main.scss']
+      main: ['./src/index.ts']
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
@@ -36,33 +36,23 @@ module.exports = {
             /**
              *   CSS 파일 분리 모드
              */
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }, {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }]
-                })
-            },
+            // {
+            //   test: /\.scss$/,
+            //   use: ExtractTextPlugin.extract({
+            //     fallback: 'style-loader',
+            //     use: ['css-loader', 'sass-loader']
+            //   })
+            // },
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: 'awesome-typescript-loader',
                 exclude: /node_modules/
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
-        })
+        // new ExtractTextPlugin({
+        //     filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
+        // })
     ]
 };

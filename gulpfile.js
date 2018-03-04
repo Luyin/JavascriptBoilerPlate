@@ -5,20 +5,16 @@ const log = require('fancy-log');
 const sassdoc = require('sassdoc');
 const karmaServer = require('karma').Server;
 const webpack = require ('webpack');
-const WebpackDevServer = require('webpack-dev-server');
 const webpackDevConfig = require('./config/webpack/webpack.dev');
-const webpackDevServerConfig = require('./config/webpack/webpack.devServer');
+const webpackBrowserSyncConfig = require('./config/webpack/webpack.browserSync');
 const webpackProdConfig = require('./config/webpack/webpack.prod');
 
 /**
  * Gulp는 node.js로 작성된 task를 단순히 수행하는 task runner이다. (일종의 자동화 매크로)
  *
  * 보통 gulp로 하는 작업들
- * 1. WebPack Bundling
- * 2. dist 폴더 삭제 (webpakc에서는 dist폴더를 비우는 plugin이 존재한다)
- * 2. dist 폴더에 복사
- * 3. live reload
- * 4. Karma 설정
+ * 1. Live Reloading
+ * 2. Karma 설정
  */
 
 /*
@@ -46,8 +42,7 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
      */
     const compiler= webpack(webpackDevConfig);
 
-    const watching = compiler.watch({
-
+    compiler.watch({
         },(err, stats) => {
             if(err || stats.hasErrors()) {
                 log.error(err);
@@ -65,37 +60,14 @@ gulp.task('webpack:build:production', ['clean:dist'], () => {
     });
 });
 
-gulp.task('webpack:devServer', () => {
-    /**
-     * watch 형태로 파일 변경시 자동 빌드
-     * 자동 빌드시 브라우저 새로고침
-     */
-    const devServerOptions = webpackDevServerConfig.devServer;
+gulp.task('webpack:browserSync', () => {
+    const compiler = webpack(webpackBrowserSyncConfig);
 
-    const compiler = webpack(webpackDevConfig);
-    const server = new WebpackDevServer(compiler, devServerOptions);
-
-    server.listen(devServerOptions.port, devServerOptions.host, (err) => {
-        if(err) {
-            log.error(err);
-        }
-    });
-});
-
-gulp.task('webpack:devServer:browserSync', () => {
-    /**
-     * watch 형태로 파일 변경시 자동 빌드
-     * 자동 빌드시 브라우저 새로고침
-     */
-    const devServerOptions = Object.create(webpackDevServerConfig.devServer);
-
-    const compiler = webpack(webpackDevServerConfig);
-    const server = new WebpackDevServer(compiler, devServerOptions);
-
-    server.listen(options.port, options.host, (err) => {
-        if(err) {
-            log.error(err);
-        }
+    compiler.watch({
+      },(err, stats) => {
+      if(err || stats.hasErrors()) {
+        log.error(err);
+      }
     });
 });
 

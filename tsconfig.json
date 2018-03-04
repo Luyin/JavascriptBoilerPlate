@@ -8,7 +8,6 @@
     "jsx": "react",
     "allowJs": true,
     "types": [
-      "lodash",
       "mocha",
       "chai"
     ]

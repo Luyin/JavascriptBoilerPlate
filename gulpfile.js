@@ -44,8 +44,7 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
      * cached로 자동 빌드 성능 향상
      * @type {webpackDevConfig}
      */
-    const config = Object.create(webpackDevConfig);
-    const compiler= webpack(config);
+    const compiler= webpack(webpackDevConfig);
 
     const watching = compiler.watch({
 
@@ -57,8 +56,7 @@ gulp.task('webpack:build:dev', ['clean:dist'], () => {
 });
 
 gulp.task('webpack:build:production', ['clean:dist'], () => {
-    const config = Object.create(webpackProdConfig);
-    const compiler= webpack(config);
+    const compiler= webpack(webpackProdConfig);
 
     compiler.run((err, stat) => {
         if(err) {
@@ -72,13 +70,12 @@ gulp.task('webpack:devServer', () => {
      * watch 형태로 파일 변경시 자동 빌드
      * 자동 빌드시 브라우저 새로고침
      */
-    const config = Object.create(webpackDevConfig);
-    const options = Object.create(webpackDevServerConfig.devServer);
+    const devServerOptions = webpackDevServerConfig.devServer;
 
-    const compiler = webpack(config);
-    const server = new WebpackDevServer(compiler, options);
+    const compiler = webpack(webpackDevConfig);
+    const server = new WebpackDevServer(compiler, devServerOptions);
 
-    server.listen(options.port, options.host, (err) => {
+    server.listen(devServerOptions.port, devServerOptions.host, (err) => {
         if(err) {
             log.error(err);
         }
@@ -90,11 +87,10 @@ gulp.task('webpack:devServer:browserSync', () => {
      * watch 형태로 파일 변경시 자동 빌드
      * 자동 빌드시 브라우저 새로고침
      */
-    const config = Object.create(webpackDevServerConfig);
-    const options = Object.create(webpackDevServerConfig.devServer);
+    const devServerOptions = Object.create(webpackDevServerConfig.devServer);
 
-    const compiler = webpack(config);
-    const server = new WebpackDevServer(compiler, options);
+    const compiler = webpack(webpackDevServerConfig);
+    const server = new WebpackDevServer(compiler, devServerOptions);
 
     server.listen(options.port, options.host, (err) => {
         if(err) {

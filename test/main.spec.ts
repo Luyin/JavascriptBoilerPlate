@@ -1,3 +1,4 @@
+import 'mocha';
 const expect = chai.expect;
 
 describe('main test', () => {

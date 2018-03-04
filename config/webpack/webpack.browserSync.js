@@ -4,7 +4,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const HOST = '0.0.0.0';
 const PORT = 3000;
 
-module.exports = Object.assign({}, dev, {
+module.exports = Object.assign({}, {
     plugins: [
         // BrowserSync 실행시, devServer 옵션은 무시됨
         new BrowserSyncPlugin({
@@ -13,6 +13,6 @@ module.exports = Object.assign({}, dev, {
           server: { baseDir: ['dist'] }
         }, {
           reload: true
-        }),
-    ],
-});
+        })
+    ]
+}, dev);

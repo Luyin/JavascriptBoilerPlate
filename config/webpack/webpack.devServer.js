@@ -1,12 +1,11 @@
 const path = require('path');
 const dev = require('./webpack.dev');
-const merge = require('webpack-merge');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const HOST = '0.0.0.0';
 const PORT = 3000;
 
-module.exports = merge(dev,{
+module.exports = Object.assign({}, dev, {
     plugins: [
         // BrowserSync 실행시, devServer 옵션은 무시됨
         new BrowserSyncPlugin({

@@ -16,3 +16,7 @@ module.exports = Object.assign({}, {
         })
     ]
 }, dev);
+
+/**
+ * Object.assign 으로 webpack 객체 merge 할 때, 처음 추가된 객게의 plugins이 가장 나중에 실행 된다.
+ */

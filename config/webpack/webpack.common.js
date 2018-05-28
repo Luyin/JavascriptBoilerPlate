@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
 /**
@@ -36,13 +37,13 @@ module.exports = {
             /**
              *   CSS 파일 분리 모드
              */
-            // {
-            //   test: /\.scss$/,
-            //   use: ExtractTextPlugin.extract({
-            //     fallback: 'style-loader',
-            //     use: ['css-loader', 'sass-loader']
-            //   })
-            // },
+            {
+              test: /\.scss$/,
+              use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'sass-loader']
+              })
+            },
             {
                 test: /\.tsx?$/,
                 use: 'awesome-typescript-loader',
@@ -51,8 +52,9 @@ module.exports = {
         ]
     },
     plugins: [
-        // new ExtractTextPlugin({
-        //     filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
-        // })
+        new ExtractTextPlugin({
+            filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
+        }),
+        new CleanWebpackPlugin(path.resolve(__dirname, '../../dist'))
     ]
 };

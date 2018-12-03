@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
@@ -30,8 +30,8 @@ module.exports = {
             //     test: /\.scss$/,
             //     use: [
             //         'style-loader', // Javascript String을 Style node로 변환하여 생성
-            //         'css-loader',   // CSS를 CommonJS로 불러들일 수있도록 Javascript String 형태로 변형
-            //         'sass-loader'   // Sass 를 컴파일하여 CSS 변환
+            //         'css-loader',   
+            //         'sass-loader'   
             //     ]
             // },
             /**
@@ -39,10 +39,11 @@ module.exports = {
              */
             {
               test: /\.scss$/,
-              use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: ['css-loader', 'sass-loader']
-              })
+              use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',       // CSS를 CommonJS로 불러들일 수있도록 Javascript String 형태로 변형
+                'sass-loader',      // Sass 를 컴파일하여 CSS 변환
+              ],
             },
             {
                 test: /\.tsx?$/,
@@ -52,7 +53,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
+        new MiniCssExtractPlugin({
             filename: 'css/[name]-one.css' //output.path 경로 아래에 생성된다.
         }),
         new CleanWebpackPlugin(path.resolve(__dirname, '../../dist'))

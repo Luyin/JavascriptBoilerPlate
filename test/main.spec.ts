@@ -1,5 +1,4 @@
-import 'mocha';
-const expect = chai.expect;
+import { expect } from 'chai';
 
 describe('main test', () => {
     it('it test', () => {
